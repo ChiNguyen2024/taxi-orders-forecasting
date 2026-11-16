@@ -1,29 +1,29 @@
-# Прогнозирование заказов такси — «Чётенькое такси»
+# Taxi Orders Forecasting
 
-Модель прогнозирования количества заказов такси на следующий час для планирования водительских смен в период пиковой нагрузки.
+Time series forecasting model for predicting hourly taxi orders to optimize driver shift planning during peak hours.
 
-## Данные
-- **Источник:** компания «Чётенькое такси»
-- **Охват:** заказы в аэропортах, март — август 2018 г.
-- **Размер:** ~26 000 записей с почасовым интервалом
-- **Признаки:** datetime, num_orders (целевой признак)
+## Data
+- **Source:** taxi company internal data
+- **Coverage:** airport orders, March — August 2018
+- **Size:** ~26,000 records at hourly intervals
+- **Features:** datetime, num_orders (target variable)
 
-## Ход работы
-- Ресамплирование по часовому интервалу, анализ скользящего среднего
-- Декомпозиция временного ряда: суточная и недельная сезонность, тренд, остатки
-- Feature engineering: лаговые признаки (1–5 часов, 24 часа, 168 часов), скользящее среднее, календарные признаки (час, день, день недели)
-- Обучение двух моделей: линейная регрессия и LightGBM
-- Кросс-валидация с TimeSeriesSplit (5 фолдов)
-- Финальное тестирование лучшей модели
+## Workflow
+- Hourly resampling, rolling average analysis
+- Time series decomposition: daily and weekly seasonality, trend, residuals
+- Feature engineering: lag features (1–5 hours, 24 hours, 168 hours), rolling mean, calendar features (hour, day, day of week)
+- Two models trained: Linear Regression and LightGBM
+- Cross-validation with TimeSeriesSplit (5 folds)
+- Final testing of the best model
 
-## Ключевые выводы
-- **Финальная модель:** линейная регрессия, RMSE = 35.2 (порог ≤ 48)
-- **Суточная сезонность:** пик заказов — вечер (18:00–22:00), минимум — ночь (0:00–6:00)
-- **Недельная сезонность:** спад в начале недели, рост к выходным
-- **Тренд:** устойчивый рост заказов с марта по август с ускорением в летний период
-- **Рекомендация:** увеличивать количество водителей в вечерние часы и выходные; использовать модель для автоматического планирования смен
+## Key Findings
+- **Final model:** Linear Regression, RMSE = 35.2 (threshold ≤ 48)
+- **Daily seasonality:** order peak — evening (18:00–22:00), minimum — night (0:00–6:00)
+- **Weekly seasonality:** drop at the start of the week, rise toward weekends
+- **Trend:** steady order growth from March to August, accelerating in summer
+- **Recommendation:** increase driver availability during evening hours and weekends; use the model for automated shift planning
 
-## Стек
+## Tech Stack
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![Pandas](https://img.shields.io/badge/Pandas-lightgrey)
 ![Scikit--learn](https://img.shields.io/badge/Scikit--learn-lightgrey)
@@ -31,3 +31,8 @@
 ![Statsmodels](https://img.shields.io/badge/Statsmodels-lightgrey)
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-lightgrey)
 
+## Repository Structure
+```
+├── taxi_orders_forecasting.ipynb  # main notebook
+└── README.md
+```
